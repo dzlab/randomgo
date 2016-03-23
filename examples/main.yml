@@ -1,0 +1,37 @@
+---
+# a list of generators to use as values for generating data
+- generators:
+  - name: a 
+    type: increment
+    initial: 0
+  - name: b 
+    type: string
+    min_size: 10 
+    max_size: 150 
+  - name: c
+    type: int
+    min: -1 
+    max: 131 
+  - name: d 
+    type: pick
+    values: ["A","B","C","D","E","F"] 
+  - name: e 
+    type: date
+    format: 2006-01-02 15:04:05
+    min: 2012-01-01 00:00:00
+    max: 2016-02-29 00:00:00 
+  - name: f 
+    type: pick
+    file: cities.txt 
+  - name: g 
+    type: float
+    min: -28.0168595
+    max: 52.5388779 
+# the schema of the objects to generate
+- schema:
+  - name: a1
+    value: $a
+  - name: a2
+    value: $f
+    optional: 0.7  
+    
