@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/dzlab/random.go"
+	"github.com/dzlab/randomgo"
 	"log"
 )
 
@@ -14,9 +14,11 @@ func main() {
 		panic(err)
 	}
 	// generate some data
+	kv := random.NewKVEncoder("=", "&")
+	json := random.NewJsonEncoder()
 	for i := 0; i < 10; i++ {
-		log.Println(i, ">", object.GetKV("=", "&"))
-		log.Println(i, ">", object.GetJSON())
+		log.Println(i, ">", kv.Encode(object))
+		log.Println(i, ">", json.Encode(object))
 
 	}
 }

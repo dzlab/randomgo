@@ -1,12 +1,10 @@
 package random
 
 import (
-	"encoding/json"
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"log"
 	"math/rand"
-	"strconv"
 	"time"
 )
 
@@ -41,81 +39,6 @@ type Object struct {
 func NewObject(attributes []Attribute) *Object {
 	source := rand.NewSource(time.Now().UnixNano())
 	return &Object{random: rand.New(source), Attributes: attributes}
-}
-
-/*
- * Generate a key-value string of this object's attributes using the provided separator
- * sep1 separates the key from its value
- * sep2 separates key-value pairs
- */
-func (this *Object) GetKV(sep1, sep2 string) string {
-	result := ""
-	for _, a := range this.Attributes {
-		// check if we have to ignore this attribute or not
-		if a.Optional > 0 && this.random.Float64() > a.Optional {
-			continue
-		}
-		value := string(<-a.Channel)
-		result += a.Name + sep1 + value + sep2
-	}
-	result = result[:len(result)-len(sep2)]
-	return result
-}
-
-/*
- * Generate a Jason string of this object's attributes
- */
-func (this *Object) GetJSON() string {
-	obj := make(map[string]interface{})
-	for _, a := range this.Attributes {
-		if a.Optional > 0 && this.random.Float64() > a.Optional {
-			continue
-		}
-		value := string(<-a.Channel)
-		// if value is integer or float than parse it, otherwise use string
-		if f, err := strconv.ParseFloat(value, 64); err == nil {
-			obj[a.Name] = f
-		} else if i, err := strconv.Atoi(value); err == nil {
-			obj[a.Name] = i
-		} else {
-			obj[a.Name] = value
-		}
-	}
-	// convert the map into json
-	result, err := json.Marshal(obj)
-	if err != nil {
-		log.Println(err)
-		return ""
-	}
-	return string(result)
-}
-
-/*
- * Generate infinitely JSON data
- */
-func (this *Object) JSONGenerator() <-chan []byte {
-	channel := make(chan []byte)
-	go func() {
-		for {
-			data := this.GetJSON()
-			channel <- []byte(data)
-		}
-	}()
-	return channel
-}
-
-/*
- * Generate infinitely KV data
- */
-func (this *Object) KVGenerator(sep1, sep2 string) <-chan []byte {
-	channel := make(chan []byte)
-	go func() {
-		for {
-			data := this.GetKV(sep1, sep2)
-			channel <- []byte(data)
-		}
-	}()
-	return channel
 }
 
 /*
