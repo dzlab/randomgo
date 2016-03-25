@@ -38,9 +38,11 @@ Then, parse this schema file and start receiving objects
 ```
 p := random.NewParser()
 object, err := p.Parse("schema.yml")
+kv := random.NewKVEncoder("=", "&")
+json := random.NewJsonEncoder()
 for i := 0; i < 10; i++ {
-  log.Println(i, ">", object.GetKV("=", "&"))
-  log.Println(i, ">", object.GetJSON())
+  log.Println(i, ">", kv.Encode(object))
+  log.Println(i, ">", json.Encode(object))
 }
 ```
 
