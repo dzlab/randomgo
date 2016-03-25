@@ -1,8 +1,8 @@
-random.go
+randomgo
 ==============
-[![Build Status](https://travis-ci.org/dzlab/random.go.png)](https://travis-ci.org/dzlab/random.go)
+[![Build Status](https://travis-ci.org/dzlab/randomgo.png)](https://travis-ci.org/dzlab/randomgo)
 
-random.go is a tool for generating complex objects with attributes of random values. It can be used for instance to create datasets for benchmarking databases or queue systems. It currently has support for:
+randomgo is a tool for generating complex objects with attributes of random values. It can be used for instance to create datasets for benchmarking databases or queue systems. It currently has support for:
 * generate primitive types (int, float, string)
 * pick randomly values from a collection or a file (e.g. list of cities name)
 * optional attributes (i.e. attributes that appear for a given probability)
@@ -10,10 +10,10 @@ random.go is a tool for generating complex objects with attributes of random val
 * ... more to come
 
 ### Installation
-```go get github.com/dzlab/random.go```
+```go get github.com/dzlab/randomgo```
 
 ### Documentation
-http://godoc.org/github.com/dzlab/random.go
+http://godoc.org/github.com/dzlab/randomgo
 
 ### Usage
 Define a YML schema file that describe the generators to use, along with the target object (with possible optional attributes).
