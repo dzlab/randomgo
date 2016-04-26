@@ -1,6 +1,7 @@
 randomgo
 ==============
 [![Build Status](https://travis-ci.org/dzlab/randomgo.png)](https://travis-ci.org/dzlab/randomgo)
+[![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org)
 
 randomgo is a tool for generating complex objects with attributes of random values. It can be used for instance to create datasets for benchmarking databases or queue systems. It currently has support for:
 * generate primitive types (int, float, string)
